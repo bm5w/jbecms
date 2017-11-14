@@ -12,8 +12,10 @@ class ItemList extends React.Component {
         this.onChange = this.onChange.bind(this);
     }
 
-    onChange(event) {
-        this.setState({purchased: event.target.checked})        
+    onChange(event, itemNumber) {
+        let newitems = this.state.items;
+        newitems[itemNumber].purchased = event.target.checked;
+        this.setState({items: newitems});
     }
     
     render() {
@@ -23,7 +25,7 @@ class ItemList extends React.Component {
                 <ul>
                     {this.state.items.map(({ purchased, name, price }, i) => {
                         return (
-                            <Item purchased={purchased} name={name} price={price} key={`uniq-${i}`} />
+                            <Item purchasedOnChange={this.onChange} purchased={purchased} name={name} price={price} key={i} index={i}/>
                         )
                     })}
                 </ul>
