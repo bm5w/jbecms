@@ -4,19 +4,10 @@ class Item extends React.Component {
     constructor (props) {
         super(props);
 
-//         this.state = {
-//             purchased: props.purchased ? props.purchased : false,
-//             name: props.name ? props.name : '',
-//             price: props.price ? props.price : 0,
-//             purchasedOnChange: props.purchasedOnChange,
-//             index: props.index
-//         };
-
         this.onChange = this.onChange.bind(this);
     }
 
     onChange(event) {
-        //this.setState({...this.state, purchased: !props.purchased})
         this.props.purchasedOnChange(event, this.props.index);
     }
 
