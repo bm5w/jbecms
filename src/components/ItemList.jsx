@@ -1,4 +1,5 @@
 import React from 'react';
+import TextInput from './TextInput.jsx';
 import Item from './Item.jsx';
 
 class ItemList extends React.Component {
@@ -10,18 +11,26 @@ class ItemList extends React.Component {
         }
 
         this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     onChange(event, itemNumber) {
         let newitems = this.state.items;
         newitems[itemNumber].purchased = event.target.checked;
         this.setState({items: newitems});
-    }
-    
+    };
+    onSubmit(data){
+        let items = this.state.items;
+        items.push({purchased: false, name: data.name, price: data.price})
+
+        this.setState({items}, () => console.log(this.state.items));
+
+    };
+
     render() {
         return (
             <div>
-
+                <TextInput onSubmit={this.onSubmit} />
                 <ul>
                     {this.state.items.map(({ purchased, name, price }, i) => {
                         return (

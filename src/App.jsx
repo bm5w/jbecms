@@ -7,7 +7,7 @@ class App extends Component {
     //let groceryData = [{purchased: name: 'Apple', price: '5'}, {name: 'Banana', price: '2'}, {name: 'Cherries', price: '3'}];
 
     return (
-      <div>
+      <div>        
         <ItemList/>
       </div>
     );
