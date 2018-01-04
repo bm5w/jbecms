@@ -18,7 +18,7 @@ class Item extends React.Component {
         //this.setState({...this.state, purchased: !props.purchased})
         this.setState({purchased: event.target.checked})
 
-        this.props.purchasedOnChange(event, this.props.index);
+        this.props.purchasedOnChange(event, this.props.name);
     }
 
     render() {
