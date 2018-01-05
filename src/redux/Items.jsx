@@ -10,10 +10,9 @@ const initialItemState = {
     price: '',
 }
 
-export function addItem (purchased, name, price) {
+export function addItem (name, price) {
     return {
         type: ADD_ITEM,
-        purchased,
         name,
         price
     }
@@ -28,11 +27,15 @@ export function checkItem (name) {
 
 export default function items (state = initialItemsState, action) {
     switch(action.type) {
-        // case ADD_ITEM:
-        //     return {
-        //         ...state,
-        //         pruchased
-        //     }
+        case ADD_ITEM:
+            return [
+              ...state, 
+              {
+                  purchased: false, 
+                  name: action.name, 
+                  price: action.price
+              }
+            ]
         case CHECK_ITEM:
             return state.map(item => 
                 (item.name === action.name) 

@@ -21,13 +21,10 @@ class ItemList extends React.Component {
         // let newitems = this.state.items;
         // newitems[itemNumber].purchased = event.target.checked;
         this.props.dispatch(ItemsAction.checkItem(itemName));
-    };
+    }
+
     onSubmit(data){
-        let items = this.state.items;
-        items.push({purchased: false, name: data.name, price: data.price})
-
-        this.setState({items}, () => console.log(this.state.items));
-
+        this.props.dispatch(ItemsAction.addItem(data.name, data.price))
     };
 
 
