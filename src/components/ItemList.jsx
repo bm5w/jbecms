@@ -1,7 +1,7 @@
 import React from 'react';
 import TextInput from './TextInput.jsx';
 import Item from './Item.jsx';
-import { dispatch } from 'redux';
+import { dispatch, bindActionCreators } from 'redux';
 import * as ItemsAction from '../redux/Items.jsx'
 import { connect } from 'react-redux'
 
@@ -48,6 +48,10 @@ function mapStateToProps(state) {
     return {
         items: state
     }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ItemsAction, dispatch)
 }
 
 export default connect(mapStateToProps)(ItemList);
