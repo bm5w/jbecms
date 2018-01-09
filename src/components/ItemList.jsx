@@ -9,24 +9,13 @@ class ItemList extends React.Component {
     constructor (props) {
         super(props);
 
-        // this.state = {
-        //     items: [{purchased: true, name: 'JASON', price: 'too expensive'}, {purchased: false, name: 'Mark', price: 'too expensive'}, {purchased: false, name: 'Erich', price: 'too expensive'}]
-        // }
-
-        this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onChange(event, itemName) {
-        // let newitems = this.state.items;
-        // newitems[itemNumber].purchased = event.target.checked;
-        this.props.dispatch(ItemsAction.checkItem(itemName));
-    }
 
     onSubmit(data){
-        this.props.dispatch(ItemsAction.addItem(data.name, data.price))
+        this.props.addItem(data.name, data.price)
     };
-
 
     render() {
         console.log(this)
@@ -34,9 +23,9 @@ class ItemList extends React.Component {
             <div>
                 <TextInput onSubmit={this.onSubmit} />
                 <ul>
-                    {this.props.items.map(({ purchased, name, price }, i) => {
+                    {this.props.items.map((item, i) => {
                         return (
-                            <Item purchasedOnChange={this.onChange} purchased={purchased} name={name} price={price} key={i} index={i}/>
+                            <Item key={i} index={i}/>
                         )
                     })}
                 </ul>
@@ -54,4 +43,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ItemsAction, dispatch)
 }
 
-export default connect(mapStateToProps)(ItemList);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemList);

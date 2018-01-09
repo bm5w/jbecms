@@ -1,38 +1,53 @@
 import React from 'react';
+import { dispatch, bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as ItemsAction from '../redux/Items.jsx'
+
 
 class Item extends React.Component {
     constructor (props) {
         super(props);
 
-        this.state = {
-            purchased: props.purchased ? props.purchased : false,
-            name: props.name ? props.name : '',
-            price: props.price ? props.price : 0,
-        }
-
         this.onChange = this.onChange.bind(this);
 
     }
 
-    onChange(event) {
-        //this.setState({...this.state, purchased: !props.purchased})
-        this.setState({purchased: event.target.checked})
-
-        this.props.purchasedOnChange(event, this.props.name);
+    onChange(event, itemName) {
+        // let newitems = this.state.items;
+        // newitems[itemNumber].purchased = event.target.checked;
+        this.props.checkItem(itemName);
     }
 
     render() {
+        console.log(this.props)
+
+        let myitem = this.props.items[this.props.index]
         
         return (
             <div>
                 <li>
-                    <input type='checkbox' checked={this.state.purchased} onChange={this.onChange}/>
-                    <label>{this.state.name}</label>
-                    <label>${this.state.price}</label>
+                    <input type='checkbox' checked={myitem.purchased} onChange={this.onChange}/>
+                    <label>{myitem.name}</label>
+                    <label>${myitem.price}</label>
                 </li>
             </div>
         )
     }
 }
 
-export default Item;
+function mapStateToProps(state) {
+    return {
+        items: state
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        checkItem: (itemName) => {
+            dispatch(ItemsAction.checkItem(itemName))
+        }
+    }
+    //return bindActionCreators(ItemsAction, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
